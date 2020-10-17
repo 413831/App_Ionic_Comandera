@@ -1,0 +1,8 @@
+{
+  "name": "comandera",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
