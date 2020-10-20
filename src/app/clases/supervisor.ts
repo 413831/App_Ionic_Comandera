@@ -5,7 +5,6 @@ export class Supervisor extends Jefe {
     apellido: string,
     dni: string,
     foto: string,
-    isActive: boolean,
     cuil: string
   ) {
     let supervisor = new Supervisor();
@@ -15,7 +14,7 @@ export class Supervisor extends Jefe {
     supervisor.apellido = apellido;
     supervisor.dni = dni;
     supervisor.foto = foto;
-    supervisor.isActive = isActive;
+    supervisor.isActive = true;
     supervisor.cuil = cuil;
 
     return supervisor;
