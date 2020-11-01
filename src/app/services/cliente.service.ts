@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
-import { Cliente, ClienteAuth } from "../clases/cliente";
+import { Cliente } from "../clases/cliente";
 
 @Injectable({
   providedIn: "root",
@@ -11,24 +11,14 @@ export class ClienteService
 
   constructor(public firebase: AngularFireDatabase) { }
 
-  public registrar(clienteAuth: ClienteAuth, uid: string): Promise<any>
+  public crear(cliente: Cliente, uid: string): Promise<any>
   {
-    console.log(clienteAuth)
-
-    let cliente = new Cliente()
     cliente.id = uid;
-    cliente.nombre = clienteAuth.nombre;
-    cliente.apellido = clienteAuth.apellido;
-    cliente.dni = clienteAuth.dni;
 
-    return this.crear(cliente)
-  }
-
-  public crear(cliente: Cliente): Promise<any>
-  {
     //TODO: eliminar cuando tenga implementado la carga de imagenes
     cliente.foto = "-"
     cliente.isActive = true;
+    cliente.isAccepted = false;
     console.log(cliente)
 
     return this.firebase.database
@@ -87,7 +77,9 @@ export class ClienteService
               data.apellido,
               data.dni,
               data.foto,
-              data.isActive
+              data.email,
+              data.isActive,
+              data.isAccepted
             )
           );
         });

@@ -60,6 +60,7 @@ export class EmpleadoService
               data.apellido,
               data.dni,
               data.foto,
+              data.email,
               data.isActive,
               data.tipo,
               data.cuil

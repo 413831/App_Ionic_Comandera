@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { ClienteAuth } from '../../clases/cliente';
+import { Cliente } from '../../clases/cliente';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +9,8 @@ import { ClienteAuth } from '../../clases/cliente';
 })
 export class LoginPage implements OnInit
 {
-  clienteAuth: ClienteAuth = new ClienteAuth
+  //TODO: fix to accept other type of users
+  cliente: Cliente = new Cliente
 
   // constructor(private authService: AuthService, private router: Router) { }
   constructor(private authService: AuthService) { }
@@ -20,9 +21,9 @@ export class LoginPage implements OnInit
 
   async onLogin()
   {
-    const clienteAuth = await this.authService.onLogin(this.clienteAuth);
+    const cliente = await this.authService.onLogin(this.cliente);
 
-    if (clienteAuth)
+    if (cliente)
     {
       console.log('Cliente logueado!');
       // this.router.navigateByUrl('/home');

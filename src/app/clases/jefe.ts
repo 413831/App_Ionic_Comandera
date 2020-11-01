@@ -17,6 +17,7 @@ export class Jefe extends Usuario
     apellido: string,
     dni: string,
     foto: string,
+    email: string,
     isActive: boolean,
     tipo: TipoJefe,
     cuil: string
@@ -29,6 +30,7 @@ export class Jefe extends Usuario
     jefe.apellido = apellido;
     jefe.dni = dni;
     jefe.foto = foto;
+    jefe.email = email;
     jefe.isActive = isActive;
     jefe.tipo = tipo;
     jefe.cuil = cuil;

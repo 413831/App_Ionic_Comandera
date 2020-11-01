@@ -25,7 +25,7 @@ export class FormReservaComponent
   @Input() reserva: Reserva;
 
   reservaForm: FormGroup;
-  todasLasMesas:Array<Mesa>;
+  todasLasMesas: Array<Mesa>;
   mesas: Array<Mesa>;
   reservas: Array<Reserva>;
   cliente: Cliente;
@@ -40,7 +40,7 @@ export class FormReservaComponent
   {
     this.fechaActual = this.getIsoLocalTime();
     /* this.cliente =   TRAER CLIENTE ACTUAL*/
-    this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', true);
+    this.cliente = Cliente.CrearCliente('01', 'carlitos', 'gonzales', '123456789', 'none', 'example@gmail.com', true, true);
     this.crearForm();
     this.leerReservas();
     this.leerMesas();
@@ -95,9 +95,9 @@ export class FormReservaComponent
     this.asignarCliente(this.cliente).then(() =>
     {
       let date = this.getDateObject();
-      let hora = date.getHours().toString()+':'+date.getMinutes().toString();
-      let fecha = date.getDate()+'/'+(date.getMonth()+1)+'/'+date.getFullYear();
-      let timeStamp = this.toTimeStamp(date);     
+      let hora = date.getHours().toString() + ':' + date.getMinutes().toString();
+      let fecha = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+      let timeStamp = this.toTimeStamp(date);
       console.log(this.toTimeStamp(date));
       console.log(this.toDate(timeStamp));
       console.log(fecha, hora);
@@ -115,7 +115,8 @@ export class FormReservaComponent
   }
   //a pesar de que el usuario no puede elegir los segundos el stringISO que devuelve ion-datetime siempre es distinto
   //entonces creo un nuevo date pasando los segundos y milisigundos como 0.
-  getDateObject(){
+  getDateObject()
+  {
     let stringISO = this.reservaForm.controls['date'].value;
     let timeStamp = Date.parse(stringISO);
     let año = Number.parseInt(dateFormat('%Y', timeStamp));
@@ -123,19 +124,21 @@ export class FormReservaComponent
     let dia = Number.parseInt(dateFormat('%e', timeStamp));
     let horas = Number.parseInt(dateFormat('%k', timeStamp));
     let minutos = Number.parseInt(dateFormat('%M', timeStamp));
-    
-    console.log(año,mes,dia,horas,minutos);
-    let newDate = new Date(año,mes-1,dia,horas,minutos,0,0);
+
+    console.log(año, mes, dia, horas, minutos);
+    let newDate = new Date(año, mes - 1, dia, horas, minutos, 0, 0);
     return newDate;
   }
   /**
    * convierte un objeto Date a timeStamp
    * @param date 
    */
-  toTimeStamp(date:Date){
-    return date.getTime()/1000;
+  toTimeStamp(date: Date)
+  {
+    return date.getTime() / 1000;
   }
-  toDate(timeStamp){
+  toDate(timeStamp)
+  {
     let date = new Date(timeStamp * 1000);
     return date;
   }
@@ -145,11 +148,12 @@ export class FormReservaComponent
     let date = this.getDateObject();
     let timeStamp = this.toTimeStamp(date);
     let reservasFechaElegida = this.filtrarReservas(timeStamp);
-    
+
     this.mesas = this.mesas.filter(mesa =>
     {
       console.log(reservasFechaElegida);
-      if(reservasFechaElegida.length >=1){
+      if (reservasFechaElegida.length >= 1)
+      {
         reservasFechaElegida.forEach(reserva =>
         {
           /* console.log(mesa);
@@ -157,15 +161,16 @@ export class FormReservaComponent
           if (reserva.mesa.id == mesa.id)
           {
             console.log('Mesa', mesa);
-          console.log('Reserva', reserva.mesa);
+            console.log('Reserva', reserva.mesa);
             return mesa;
           }
         })
       }
-      else{
+      else
+      {
         return mesa;
       }
-        
+
     })
   }
 
@@ -179,12 +184,12 @@ export class FormReservaComponent
   {
     let tiempoPromedioDeOcupacionDeMesa = this.sumarMinutos(timeStamp, 10);
     let tiempoPromedioDeOcupacionDeMesaNegativo = this.restarMinutos(timeStamp, 10);//para no tomen esa mesa antes del tiempo estipulado para que una persona coma
-    console.log('tiempoPromedioDeOcupacionDeMesa', this.obtenerHora(tiempoPromedioDeOcupacionDeMesa) );
-    console.log('tiempoPromedioDeOcupacionDeMesaNegativo', this.obtenerHora(tiempoPromedioDeOcupacionDeMesaNegativo) );
+    console.log('tiempoPromedioDeOcupacionDeMesa', this.obtenerHora(tiempoPromedioDeOcupacionDeMesa));
+    console.log('tiempoPromedioDeOcupacionDeMesaNegativo', this.obtenerHora(tiempoPromedioDeOcupacionDeMesaNegativo));
     let reservasFechaElegida = this.reservas.filter(reserva =>
     {
-/*       console.log(timeStamp);
-      console.log(reserva.timeStamp); */
+      /*       console.log(timeStamp);
+            console.log(reserva.timeStamp); */
       if (timeStamp == reserva.timeStamp)/* >= tiempoDeReserva && timeStamp <= tiempoPromedioDeOcupacionDeMesa */
       {
         return reserva;
@@ -201,9 +206,10 @@ export class FormReservaComponent
       this.reservas = reservas;
     })
   }
-  leerMesas(){
-    this.mesasService.leer().then(mesas=>{this.mesas = mesas; console.log('Mesas', this.mesas)});
-  }  
+  leerMesas()
+  {
+    this.mesasService.leer().then(mesas => { this.mesas = mesas; console.log('Mesas', this.mesas) });
+  }
 
   obtenerFecha(timeStamp)
   {
