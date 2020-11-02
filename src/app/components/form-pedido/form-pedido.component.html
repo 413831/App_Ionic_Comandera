@@ -9,26 +9,11 @@
       </ion-list-header>
 
       <ion-item color="dark">
-        <ion-label>Mesa asignada:{{pedido.mesa.numero}}</ion-label>
+        <ion-label>MESA ASIGNADA</ion-label>
       </ion-item>
 
       <ion-item color="dark">
-        <ion-label>
-          <h4>Cliente</h4>
-          <p>
-            {{pedido.cliente.nombre}} {{pedido.cliente.apellido}}
-            {{pedido.cliente.dni}}
-            Hora actual {{fechaActual}}
-          </p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Fecha y Hora</ion-label>
-        <ion-datetime cancelText="Cancelar" doneText="Confirmar" display-format="D MMM YYYY H:mm"
-                      [min]="fechaActual" display-timezone="utc" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"
-                      pickerFormat="D MMM YYYY H:mm" placeholder="Seleccione Fecha y Hora">
-        </ion-datetime><!--  (click)=" leerMesasDisponibles()"[disabled]="reservaForm.controls['fecha'].invalid" -->
+        <ion-label>CLIENTE ASIGNADO</ion-label>
       </ion-item>
 
       <ion-item color="dark">

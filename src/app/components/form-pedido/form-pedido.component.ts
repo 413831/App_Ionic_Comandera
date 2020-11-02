@@ -26,15 +26,12 @@ export class FormPedidoComponent implements OnInit
   @Input() reserva: any; // Se requiere tener una reserva para hacer pedido
   @Input() opcion: OpcionForm = OpcionForm.ALTA;
   @Input() pedido: Pedido = new Pedido();
-  fechaActual: string;
 
   constructor(private pedidoService: PedidoService, private modalController: ModalController,
     private toastController: ToastController, private UIVisual: UIVisualService) { }
 
   ngOnInit() 
   {
-    this.fechaActual = new Date().toISOString();
-
     if (this.opcion == 'Alta')
     {
       this.pedido = new Pedido();
