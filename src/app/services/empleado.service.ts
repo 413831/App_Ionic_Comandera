@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Empleado } from "../clases/empleado";
+import { Imagen } from '../clases/imagen';
 
 @Injectable({
   providedIn: "root",
@@ -14,9 +15,6 @@ export class EmpleadoService
   public crear(empleado: Empleado, uid: string): Promise<any>
   {
     empleado.id = uid;
-
-    //TODO: eliminar cuando tenga implementado la carga de imagenes
-    empleado.foto = "-"
     empleado.isActive = true;
     console.log(empleado)
 

@@ -1,4 +1,5 @@
 import { IListaEspera } from '../interfaces/IListaEspera';
+import { Imagen } from './imagen';
 import { Usuario } from './usuario';
 
 export enum EstadoAceptacion
@@ -19,7 +20,7 @@ export class Cliente extends Usuario
     nombre: string,
     apellido: string,
     dni: string,
-    foto: string,
+    foto: Imagen,
     email: string,
     isActive: boolean,
     estado: EstadoAceptacion,

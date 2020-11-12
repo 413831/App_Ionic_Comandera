@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from "@angular/fire/database";
 import { Cliente, EstadoAceptacion } from "../clases/cliente";
+import { Imagen } from '../clases/imagen';
 
 @Injectable({
   providedIn: "root",
@@ -14,9 +15,6 @@ export class ClienteService
   public crear(cliente: Cliente, uid: string): Promise<any>
   {
     cliente.id = uid;
-
-    //TODO: eliminar cuando tenga implementado la carga de imagenes
-    cliente.foto = "-"
     cliente.isActive = true;
     cliente.estado = EstadoAceptacion.Pendiente;
     cliente.enListaDeEspera = {

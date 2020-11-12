@@ -7,6 +7,7 @@ import { EmpleadoService } from 'src/app/services/empleado.service';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Router } from '@angular/router';
 import { ActionSheetController, ModalController } from '@ionic/angular';
+import { Imagen } from 'src/app/clases/imagen';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,7 @@ export class LoginPage implements OnInit
     {
       console.log('Cliente anonimo logueado!');
 
-      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", "-", " ", true, EstadoAceptacion.Anonimo,{isWaiting:false , horario: null})
+      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", new Imagen(), " ", true, EstadoAceptacion.Anonimo, { isWaiting: false, horario: null })
       console.log(cliente)
 
       AuthService.usuario = cliente;

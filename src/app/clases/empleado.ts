@@ -1,3 +1,4 @@
+import { Imagen } from './imagen';
 import { Usuario } from './usuario';
 
 export enum TipoEmpleado
@@ -17,7 +18,7 @@ export class Empleado extends Usuario
     nombre: string,
     apellido: string,
     dni: string,
-    foto: string,
+    foto: Imagen,
     email: string,
     isActive: boolean,
     tipo: TipoEmpleado,

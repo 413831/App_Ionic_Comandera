@@ -6,11 +6,7 @@ export class Imagen
     fecha: string;
     rutaStorage?: string;
 
-    public Imagen()
-    {
-    }
-
-    public static CrearImagen(id: string, base64: string, url: string,fecha: string, rutaStorage: string)
+    public static CrearImagen(id: string, base64: string, url: string, fecha: string, rutaStorage: string)
     {
         let imagen = new Imagen();
 
@@ -19,7 +15,7 @@ export class Imagen
         imagen.url = url;
         imagen.fecha = fecha;
         imagen.rutaStorage = rutaStorage;
-        
+
         return imagen;
     }
 }
