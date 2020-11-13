@@ -1,24 +1,30 @@
-<div class="ion-activatable card-jefe">
-  <ion-card mode="ios" color="dark">
-    <ion-card-header>
-      <ion-card-title>Jefe: {{ jefe.nombre }} {{ jefe.apellido }}</ion-card-title>
-    </ion-card-header>
+<div class="ion-activatable centrado">
+  <ion-card color="dark">
 
-    <ion-img class="contenido" [src]="jefe.foto.url"></ion-img>
+    <ion-item>
+      <ion-avatar *ngIf="jefe.foto && jefe.foto.url" slot="end" (click)="verFoto(jefe.foto)">
+        <img [src]="jefe.foto.url">
+      </ion-avatar>
+      <ion-label>{{ jefe.nombre }} {{ jefe.apellido }}</ion-label>
+    </ion-item>
 
-    <ion-card-content>
+    <ion-card-content color="dark">
       <ion-chip color="light" mode="ios" outline="true">
-        <ion-label>Tipo:{{ jefe.tipo }}</ion-label>
+        <ion-label>Tipo: {{ jefe.tipo }}</ion-label>
       </ion-chip>
+
       <ion-chip color="light" mode="ios" outline="true">
-        <ion-label>DNI:{{ jefe.dni }}</ion-label>
+        <ion-label>Correo Electrónico: {{ jefe.email }}</ion-label>
       </ion-chip>
+
       <ion-chip color="light" mode="ios" outline="true">
-        <ion-label>CUIL:{{ jefe.cuil }}</ion-label>
+        <ion-label>DNI: {{ jefe.dni }}</ion-label>
+      </ion-chip>
+
+      <ion-chip color="light" mode="ios" outline="true">
+        <ion-label>CUIL: {{ jefe.cuil }}</ion-label>
       </ion-chip>
     </ion-card-content>
-    <ion-button (click)="sacarFoto()" size="large" expand="block" fill="solid" color="light">
-      Sacar foto
-    </ion-button>
+
   </ion-card>
 </div>

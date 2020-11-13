@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Imagen } from 'src/app/clases/imagen';
 import { Jefe } from 'src/app/clases/jefe';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-detalle-jefe',
@@ -10,13 +12,12 @@ export class DetalleJefeComponent implements OnInit
 {
   @Input() jefe: Jefe;
 
-  constructor() { }
+  constructor(private UIVisual: UIVisualService) { }
 
   ngOnInit() { }
 
-  //TODO: tomar foto del jefe
-  sacarFoto()
+  async verFoto(foto: Imagen)
   {
-    console.log("Sacar foto");
+    UIVisualService.verFoto(null, foto);
   }
 }

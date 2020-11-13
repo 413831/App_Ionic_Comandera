@@ -16,12 +16,6 @@ export class DetalleEmpleadoComponent implements OnInit
 
   ngOnInit() { }
 
-  //TODO: tomar foto del empleado
-  sacarFoto()
-  {
-    console.log("Sacar foto");
-  }
-
   async verFoto(foto: Imagen)
   {
     UIVisualService.verFoto(null, foto);

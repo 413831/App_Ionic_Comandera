@@ -10,43 +10,42 @@
       <ion-item>
         <ion-label position="floating">Nombre</ion-label>
         <ion-input type="text" name="nombre" [(ngModel)]="jefe.nombre" [placeholder]="jefe.nombre"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Apellido</ion-label>
         <ion-input type="text" name="apellido" [(ngModel)]="jefe.apellido" [placeholder]="jefe.apellido"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">DNI</ion-label>
         <ion-input type="number" name="dni" [(ngModel)]="jefe.dni" [placeholder]="jefe.dni"
-                   [disabled]="opcion == 'Baja'"
-                   required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">CUIL</ion-label>
         <ion-input type="string" name="cuil" [(ngModel)]="jefe.cuil" [placeholder]="jefe.cuil"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Email</ion-label>
         <ion-input type="text" name="email" [(ngModel)]="jefe.email" [placeholder]="jefe.email"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input type="password" name="password" [(ngModel)]="jefe.password" [placeholder]="jefe.password"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
     </ion-list>
@@ -54,27 +53,41 @@
     <ion-item>
       <ion-label>Tipo de jefe</ion-label>
       <ion-select value="jefe.tipo" multiple="false" name="tipoJefe" [placeholder]="jefe.tipo" [(ngModel)]="jefe.tipo"
-                  [disabled]="opcion == 'Baja'" [interfaceOptions]="popoverOptions" interface="popover" required>
+        [disabled]="opcion == 'Baja'" [interfaceOptions]="popoverOptions" interface="popover" required>
         <ion-select-option value="Dueno">Dueño</ion-select-option>
         <ion-select-option value="Supervisor">Supervisor</ion-select-option>
       </ion-select>
     </ion-item>
 
+    <ion-item *ngIf="imgPreview" color="dark">
+      <img [src]="imgPreview | safe: 'url'" alt="Imagen de cliente">
+    </ion-item>
+
+    <ion-item color="dark">
+      <ion-button (click)="sacarFoto()" fill="solid" size="medium" color="dark" [disabled]="opcion == 'Baja'">
+        Subir foto
+        <ion-icon slot="start" name="camera"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+
+    <ion-item *ngIf="jefe.foto" color="dark">
+      <ion-img [src]="jefe.foto.url"></ion-img>
+    </ion-item>
 
   </form>
   <!-- Se muestra accion segun tipo de llamado al formulario -->
-  <ion-button (click)="altaJefe()" color="dark" expand="block" type="submit" size="large"
-              [disabled]="formulario.invalid" *ngIf="opcion == 'Alta'">
+  <ion-button (click)="altaJefe()" color="success" expand="block" type="submit" size="large"
+    [disabled]="formulario.invalid" *ngIf="opcion == 'Alta'">
     Crear
   </ion-button>
 
-  <ion-button (click)="modificarJefe()" color="dark" expand="block" type="submit" size="large"
-              [disabled]="formulario.invalid" *ngIf="opcion == 'Modificación'">
+  <ion-button (click)="modificarJefe()" color="success" expand="block" type="submit" size="large"
+    [disabled]="formulario.invalid" *ngIf="opcion == 'Modificación'">
     Modificar
   </ion-button>
 
-  <ion-button (click)="borrarJefe()" color="dark" expand="block" type="submit" size="large"
-              *ngIf="opcion == 'Baja'">
+  <ion-button (click)="borrarJefe()" color="danger" expand="block" type="submit" size="large" *ngIf="opcion == 'Baja'">
     Eliminar
   </ion-button>
 </ion-content>
