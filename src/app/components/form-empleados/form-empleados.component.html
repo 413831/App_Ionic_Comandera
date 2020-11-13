@@ -10,42 +10,42 @@
       <ion-item>
         <ion-label position="floating">Nombre</ion-label>
         <ion-input type="text" name="nombre" [(ngModel)]="empleado.nombre" [placeholder]="empleado.nombre"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Apellido</ion-label>
         <ion-input type="text" name="apellido" [(ngModel)]="empleado.apellido" [placeholder]="empleado.apellido"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">DNI</ion-label>
         <ion-input type="number" name="dni" [(ngModel)]="empleado.dni" [placeholder]="empleado.dni"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">CUIL</ion-label>
         <ion-input type="string" name="cuil" [(ngModel)]="empleado.cuil" [placeholder]="empleado.cuil"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Email</ion-label>
         <ion-input type="text" name="email" [(ngModel)]="empleado.email" [placeholder]="empleado.email"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label position="floating">Contraseña</ion-label>
         <ion-input type="password" name="password" [(ngModel)]="empleado.password" [placeholder]="empleado.password"
-                   [disabled]="opcion == 'Baja'" required>
+          [disabled]="opcion == 'Baja'" required>
         </ion-input>
       </ion-item>
     </ion-list>
@@ -53,29 +53,42 @@
     <ion-item>
       <ion-label>Tipo de empleado</ion-label>
       <ion-select value="empleado.tipo" multiple="false" name="tipoEmpleado" [placeholder]="empleado.tipo"
-                  [(ngModel)]="empleado.tipo" [disabled]="opcion == 'Baja'" [interfaceOptions]="popoverOptions"
-                  interface="popover"
-                  required>
+        [(ngModel)]="empleado.tipo" [disabled]="opcion == 'Baja'" [interfaceOptions]="popoverOptions"
+        interface="popover" required>
         <ion-select-option value="Cocinero">Cocinero</ion-select-option>
         <ion-select-option value="Bartender">Bartender</ion-select-option>
         <ion-select-option value="Mozo">Mozo</ion-select-option>
       </ion-select>
     </ion-item>
 
+    <ion-item *ngIf="imgPreview" color="dark">
+      <img [src]="imgPreview | safe: 'url'" alt="Imagen de cliente">
+    </ion-item>
+
+    <ion-item color="dark">
+      <ion-button (click)="sacarFoto()" fill="solid" size="medium" color="dark" [disabled]="opcion == 'Baja'">
+        Subir foto
+        <ion-icon slot="start" name="camera"></ion-icon>
+      </ion-button>
+
+    </ion-item>
+
+    <ion-item *ngIf="empleado.foto" color="dark">
+      <ion-img [src]="empleado.foto.url"></ion-img>
+    </ion-item>
+
   </form>
-  <!-- Se muestra accion segun tipo de llamado al formulario -->
-  <ion-button (click)="altaEmpleado()" color="dark" expand="block" type="submit" size="large"
-              [disabled]="formulario.invalid" *ngIf="opcion == 'Alta'">
+
+  <ion-button (click)="altaEmpleado()" color="success" expand="block" type="submit" size="large"
+    [disabled]="formulario.invalid" *ngIf="opcion == 'Alta'">
     Crear
   </ion-button>
-
-  <ion-button (click)="modificarEmpleado()" color="dark" expand="block" type="submit" size="large"
-              [disabled]="formulario.invalid" *ngIf="opcion == 'Modificación'">
+  <ion-button (click)="modificarEmpleado()" color="success" expand="block" type="submit" size="large"
+    [disabled]="formulario.invalid" *ngIf="opcion == 'Modificación'">
     Modificar
   </ion-button>
-
-  <ion-button (click)="borrarEmpleado()" color="dark" expand="block" type="submit" size="large"
-              *ngIf="opcion == 'Baja'">
+  <ion-button (click)="borrarEmpleado()" color="danger" expand="block" type="submit" size="large"
+    *ngIf="opcion == 'Baja'">
     Eliminar
   </ion-button>
 </ion-content>

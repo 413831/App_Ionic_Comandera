@@ -18,12 +18,6 @@ export class DetalleClienteComponent implements OnInit
 
   ngOnInit() { }
 
-  //TODO: tomar foto del cliente
-  sacarFoto()
-  {
-    console.log("Sacar foto");
-  }
-
   aceptarCliente()
   {
     this.cliente.estado = EstadoAceptacion.Aceptado;

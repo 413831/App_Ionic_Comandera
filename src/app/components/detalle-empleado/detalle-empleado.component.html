@@ -1,25 +1,26 @@
 <div class="ion-activatable centrado">
-  <ion-card mode="ios" color="dark">
-    <ion-card-header>
-      <ion-card-title>Empleado: {{ empleado.nombre }} {{ empleado.apellido }}</ion-card-title>
-    </ion-card-header>
+  <ion-card color="dark">
 
-    <ion-img class="contenido" [src]="empleado.foto.url"></ion-img>
+    <ion-item>
+      <ion-avatar *ngIf="empleado.foto && empleado.foto.url" slot="end" (click)="verFoto(empleado.foto)">
+        <img [src]="empleado.foto.url">
+      </ion-avatar>
+      <ion-label>{{ empleado.nombre }} {{ empleado.apellido }}</ion-label>
+    </ion-item>
 
     <ion-card-content color="dark">
       <ion-chip color="light" mode="ios" outline="true">
-        <ion-label>Tipo:{{ empleado.tipo }}</ion-label>
+        <ion-label>DNI: {{ empleado.dni }}</ion-label>
       </ion-chip>
+
       <ion-chip color="light" mode="ios" outline="true">
-        <ion-label>DNI:{{ empleado.dni }}</ion-label>
+        <ion-label>Correo Electrónico: {{ empleado.email }}</ion-label>
       </ion-chip>
+
       <ion-chip color="light" mode="ios" outline="true">
-        <ion-label>CUIL:{{ empleado.cuil }}</ion-label>
+        <ion-label>CUIL: {{ empleado.cuil }}</ion-label>
       </ion-chip>
     </ion-card-content>
-    <ion-button (click)="sacarFoto()" size="large" expand="block" fill="solid" color="light">
-      Sacar foto
-    </ion-button>
-    <ion-ripple-effect type="bounded"></ion-ripple-effect>
+
   </ion-card>
 </div>

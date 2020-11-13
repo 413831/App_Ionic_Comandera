@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Empleado } from 'src/app/clases/empleado';
+import { Imagen } from 'src/app/clases/imagen';
+import { UIVisualService } from 'src/app/services/uivisual.service';
 
 @Component({
   selector: 'app-detalle-empleado',
@@ -10,7 +12,7 @@ export class DetalleEmpleadoComponent implements OnInit
 {
   @Input() empleado: Empleado;
 
-  constructor() { }
+  constructor(private UIVisual: UIVisualService) { }
 
   ngOnInit() { }
 
@@ -20,4 +22,8 @@ export class DetalleEmpleadoComponent implements OnInit
     console.log("Sacar foto");
   }
 
+  async verFoto(foto: Imagen)
+  {
+    UIVisualService.verFoto(null, foto);
+  }
 }
