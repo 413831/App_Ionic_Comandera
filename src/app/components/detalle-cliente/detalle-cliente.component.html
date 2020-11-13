@@ -1,21 +1,22 @@
 <div class="ion-activatable centrado">
   <ion-card color="dark">
 
-    <ion-card-header>
-      <ion-card-title>{{ cliente.nombre }} {{ cliente.apellido }}</ion-card-title>
-    </ion-card-header>
-
-    <ion-img class="contenido" [src]="cliente.foto.url"></ion-img>
+    <ion-item>
+      <ion-avatar *ngIf="cliente.foto && cliente.foto.url" slot="end" (click)="verFoto(cliente.foto)">
+        <img [src]="cliente.foto.url">
+      </ion-avatar>
+      <ion-label>{{ cliente.nombre }} {{ cliente.apellido }}</ion-label>
+    </ion-item>
 
     <ion-card-content color="dark">
       <ion-chip color="light" mode="ios" outline="true">
-        <ion-label>DNI:{{ cliente.dni }}</ion-label>
+        <ion-label>DNI: {{ cliente.dni }}</ion-label>
+      </ion-chip>
+
+      <ion-chip color="light" mode="ios" outline="true">
+        <ion-label>Correo Electrónico: {{ cliente.email }}</ion-label>
       </ion-chip>
     </ion-card-content>
-
-    <ion-button *ngIf="!pendiente" (click)="sacarFoto()" size="large" expand="block" fill="solid" color="success">
-      Sacar foto
-    </ion-button>
 
     <div class="buttons-container" *ngIf="pendiente">
       <div>

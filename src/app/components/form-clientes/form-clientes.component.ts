@@ -4,6 +4,8 @@ import { Cliente } from "src/app/clases/cliente";
 import { ClienteService } from "src/app/services/cliente.service";
 import { AuthService } from "src/app/services/auth.service";
 import { UIVisualService } from "src/app/services/uivisual.service"
+import { Imagen } from 'src/app/clases/imagen';
+import { ImagenService } from 'src/app/services/imagen.service';
 
 enum OpcionForm
 {
@@ -22,7 +24,11 @@ export class FormClientesComponent implements OnInit
   @Input() opcion: OpcionForm;
   @Input() cliente: Cliente;
 
-  constructor(private clienteService: ClienteService, private authService: AuthService, private UIVisual: UIVisualService) { }
+  auxiliarFoto: Imagen
+  imgPreview: string
+
+  constructor(private clienteService: ClienteService, private authService: AuthService, private UIVisual: UIVisualService,
+    private imagenService: ImagenService) { }
 
   ngOnInit(): void
   {
@@ -32,6 +38,17 @@ export class FormClientesComponent implements OnInit
     }
   }
 
+  async sacarFoto()
+  {
+    const foto = await this.imagenService.sacarFoto()
+
+    this.imgPreview = `data:image/jpeg;base64,${foto.base64}`
+
+    this.auxiliarFoto = new Imagen();
+    this.auxiliarFoto.base64 = foto.base64;
+    this.auxiliarFoto.fecha = foto.fecha;
+  }
+
   /**
    * Alta de cliente
    */
@@ -39,6 +56,13 @@ export class FormClientesComponent implements OnInit
   {
     if (this.cliente && !this.cliente.id)
     {
+      // Se guarda imagen en DB y Storage
+      const imagenGuardada = await this.imagenService.crearUnaImagen(
+        this.auxiliarFoto,
+        '/clientes'
+      )
+      this.cliente.foto = imagenGuardada;
+
       this.authService
         .onRegisterCliente(this.cliente)
         .then(() => UIVisualService.presentToast('Alta exitosa'))
