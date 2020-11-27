@@ -207,7 +207,7 @@ export class NotificationsService
 
   }
 
-  async enviarNotificacionPorToken(titulo: string, mensaje: string, token: string)
+  async enviarNotificacionPorToken(titulo: string, mensaje: string,ruta:string, token: string)
   {
     let payload: INotificacion =
     {
@@ -215,6 +215,10 @@ export class NotificationsService
       {
         title: titulo,
         body: mensaje
+      },
+      data:
+      {
+        ruta: ruta
       },
       token: token
     }

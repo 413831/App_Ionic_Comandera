@@ -58,14 +58,14 @@ export class ChatComponent implements OnInit, AfterViewChecked, DoCheck
     switch (this.mensaje.usuario.tipo)
     {
       case 'Cliente':
-        this.notificationService.enviarNotificacion('Nuevo Mensaje', this.mensaje.texto,
-          '/home/consultas',
+        this.notificationService.enviarNotificacion(`Nuevo Mensaje mesa ${this.mensaje.mesa}`, this.mensaje.texto,
+          '/home/consultas',//No es sala-chat?
           'mozos');
         break;
       case 'Mozo':
         let tokenCliente = this.mensajes.find(m => m.usuario.id != this.idUsuario).usuario.token;
 
-        this.notificationService.enviarNotificacionPorToken('Nuevo Mensaje', this.mensaje.texto, tokenCliente);
+        this.notificationService.enviarNotificacionPorToken('Nuevo Mensaje', this.mensaje.texto,'/home/consultas', tokenCliente);
         break;
     }
 
