@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import theme from 'highcharts/themes/dark-unica';
 import { Cliente } from 'src/app/clases/cliente';
-import { Pedido } from 'src/app/clases/pedido';
-import { Dia, Serie } from 'src/app/pages/estadisticas/estadisticas.page';
+import { Dia} from 'src/app/pages/estadisticas/estadisticas.page';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { PedidoService } from 'src/app/services/pedido.service';
 import { RolesService } from 'src/app/services/roles.service';
+/* import HC_exporting from 'highcharts/modules/exporting';
+import HC_exportData from 'highcharts/modules/export-data';
+HC_exporting(Highcharts);
+HC_exportData(Highcharts); */
+
+
 @Component({
   selector: 'app-clientes-rechazados-por-dia',
   templateUrl: './clientes-rechazados-por-dia.component.html',
