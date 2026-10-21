@@ -17,7 +17,7 @@ export class EncuestaPage implements OnInit
 {
   usuario: Usuario = AuthService.usuario;
 
-  constructor(private rolService: RolesService, private empleadoService: EmpleadoService,
+  constructor(public rolService: RolesService, private empleadoService: EmpleadoService,
     private clienteService: ClienteService, private modalController: ModalController,
     private encuestaService: EncuestaService) { }
 

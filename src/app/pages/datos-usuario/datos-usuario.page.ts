@@ -27,7 +27,7 @@ export class DatosUsuarioPage implements OnInit
   constructor(private clienteService: ClienteService,
     private empleadoService: EmpleadoService,
     private jefeService: JefeService,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private imagenService: ImagenService,
     private UIVisual: UIVisualService) { }
 

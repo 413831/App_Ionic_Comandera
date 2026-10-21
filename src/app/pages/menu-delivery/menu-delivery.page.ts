@@ -20,7 +20,7 @@ export class MenuDeliveryPage implements OnInit {
   deliveryElegido: Pedido;
 
   constructor(private pedidoService: PedidoService,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private platform: Platform,
     private router: Router,
     private route: ActivatedRoute,

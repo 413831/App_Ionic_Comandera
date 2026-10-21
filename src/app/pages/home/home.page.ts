@@ -30,7 +30,7 @@ export class HomePage implements OnInit
 
   constructor(
     private platform: Platform,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private authService: AuthService,
     private router: Router,
     private notifications: NotificationsService,

@@ -22,7 +22,7 @@ export class ListadoReservasComponent implements OnInit
 
   constructor(
     private loadingController: LoadingController,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private visual: UIVisualService,
     private pedidoService: PedidoService,
   ) { }

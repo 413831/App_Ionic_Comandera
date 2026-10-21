@@ -28,7 +28,7 @@ export class AnonimosPorDiaComponent implements OnInit
   Dia.Viernes, Dia.Sabado];
   private XCategories: Array<any>;
 
-  constructor(private rolService: RolesService) { }
+  constructor(public rolService: RolesService) { }
 
   ngOnInit() 
   {

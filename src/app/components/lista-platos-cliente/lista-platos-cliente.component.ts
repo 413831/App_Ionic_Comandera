@@ -24,7 +24,7 @@ export class ListaPlatosClienteComponent implements OnInit
 
   @ViewChild('lista', { static: false }) lista: IonList;
 
-  constructor(private modalController: ModalController, private rolService: RolesService,
+  constructor(private modalController: ModalController, public rolService: RolesService,
     private pedidoService: PedidoService, private toastController: ToastController,
     private notificationService: NotificationsService
   ) { }

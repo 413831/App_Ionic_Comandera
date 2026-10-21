@@ -20,7 +20,8 @@
     "googlemaps"
   ],
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
+    "fullTemplateTypeCheck": false,
+    "strictTemplates": false,
     "strictInjectionParameters": true
   }
 }

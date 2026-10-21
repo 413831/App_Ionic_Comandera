@@ -31,7 +31,7 @@ export class ListaDeEsperaPage implements OnInit, DoCheck, ViewDidLeave
     private UIVisual: UIVisualService,
     private pedidosService: PedidoService,
     private mesasService: MesaService,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private platform: Platform,
     private router: Router
   )

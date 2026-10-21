@@ -28,7 +28,7 @@ export class InfoMesaPage implements OnInit, DoCheck
   constructor(private route: ActivatedRoute, private router: Router, private mesaService: MesaService,
     private clienteService: ClienteService, private pedidoService: PedidoService,
     private modalController: ModalController,
-    private rolService: RolesService, private UIVisual: UIVisualService) 
+    public rolService: RolesService, private UIVisual: UIVisualService) 
   {
 
   }

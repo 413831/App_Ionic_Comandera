@@ -12,6 +12,7 @@ export class Reserva {
     public timeStamp;
     public stringISO;
     public confirmada;
+    public fechaInicio?: any;
 
     public constructor(init?: Partial<Reserva>) {
         if(init){

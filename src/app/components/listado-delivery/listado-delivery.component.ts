@@ -23,7 +23,7 @@ export class ListadoDeliveryComponent implements OnInit
 
   constructor(
     private loadingController: LoadingController,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private visual: UIVisualService,
     private pedidoService: PedidoService,
     public alertController: AlertController,

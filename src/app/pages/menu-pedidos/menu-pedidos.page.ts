@@ -20,7 +20,7 @@ export class MenuPedidosPage implements OnInit, DoCheck
   pedidoElegido: Pedido = new Pedido();
   modo: string = 'Listado';
 
-  constructor(private platform: Platform, private rolService: RolesService,
+  constructor(private platform: Platform, public rolService: RolesService,
     private route: ActivatedRoute, private router: Router) 
   {
     this.platform.backButton.subscribeWithPriority(10, () =>

@@ -28,7 +28,7 @@ export class ClientesRechazadosPorDiaComponent implements OnInit
   Dia.Viernes, Dia.Sabado];
   private XCategories: Array<any> = [];
 
-  constructor(private rolService: RolesService, private clienteService: ClienteService) { }
+  constructor(public rolService: RolesService, private clienteService: ClienteService) { }
 
   ngOnInit() 
   {

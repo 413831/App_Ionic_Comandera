@@ -17,7 +17,7 @@ export class EscanerQRComponent implements OnInit
   @Input() usuario: Usuario;
 
   constructor(private escanerQR: CodigoQRService, private router: Router,
-    private rolService: RolesService, private UIVisual: UIVisualService) { }
+    public rolService: RolesService, private UIVisual: UIVisualService) { }
 
   ngOnInit() { }
 

@@ -21,7 +21,7 @@ export class MenuReservaPage implements OnInit, DoCheck
   reservaElegida: Pedido;
 
   constructor(private pedidoService: PedidoService,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private platform: Platform,
     private router: Router,
     private route: ActivatedRoute,

@@ -17,7 +17,7 @@ export class ConsultasPage implements OnInit, DoCheck
   mensajes: Mensaje[] = [];
 
   constructor(private platform: Platform, private mensajeService: MensajesService,
-    private router: Router, private UIVisual: UIVisualService, private rolService: RolesService) 
+    private router: Router, private UIVisual: UIVisualService, public rolService: RolesService) 
   {
     this.platform.backButton.subscribeWithPriority(10, () =>
     {

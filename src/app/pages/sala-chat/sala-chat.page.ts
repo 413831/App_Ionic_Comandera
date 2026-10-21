@@ -24,7 +24,7 @@ export class SalaChatPage implements OnInit, DoCheck, ViewDidEnter, AfterViewChe
   constructor(private platform: Platform,
     private mensajeService: MensajesService,
     private modalController: ModalController,
-    private rolService: RolesService) 
+    public rolService: RolesService) 
   {
     this.platform.backButton.subscribeWithPriority(10, () =>
     {

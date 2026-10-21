@@ -25,7 +25,7 @@ export class MenuProductoPage implements OnInit, DoCheck
   constructor(
     private platform: Platform,
     private productoService: ProductoService,
-    private rolService: RolesService,
+    public rolService: RolesService,
     private UIVisual: UIVisualService,
     private router: Router) 
   {

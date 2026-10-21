@@ -21,7 +21,7 @@ export class DetallePedidoComponent implements OnInit
   metadataMensaje: MetadataMensaje;
   botonesActionSheet: IBotonesGenerados;
 
-  constructor(private rolService: RolesService) 
+  constructor(public rolService: RolesService) 
   {
   }
 

@@ -11,4 +11,7 @@ export class Usuario
   password: string;
   isActive: boolean;
   tokenNotification: string;
+  cuil?: string;
+  estado?: any;
+  tipo?: any;
 }

@@ -17,7 +17,7 @@ export class ListadoPedidosComponent implements OnInit, DoCheck
   @Output() elegirPedido: EventEmitter<Pedido> = new EventEmitter<Pedido>();
   @Input() opcion: EstadoPedido;
 
-  constructor(private router: Router, private rolService: RolesService) { }
+  constructor(private router: Router, public rolService: RolesService) { }
 
   ngDoCheck(): void
   {
