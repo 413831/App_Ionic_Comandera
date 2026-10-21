@@ -1,0 +1,41 @@
+.contenido {
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 24px 20px;
+  border-radius: 26px;
+  background: rgba(18, 18, 24, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+
+  ion-list {
+    background: transparent !important;
+  }
+
+  ion-item {
+    --background: rgba(30, 30, 42, 0.7);
+    --border-radius: 12px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    --highlight-color-focused: var(--ion-color-danger);
+
+    ion-label {
+      font-weight: 500;
+      color: #b0b0c8 !important;
+    }
+
+    ion-input {
+      color: #ffffff !important;
+      font-weight: 500;
+    }
+  }
+
+  ion-button {
+    --border-radius: 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+}

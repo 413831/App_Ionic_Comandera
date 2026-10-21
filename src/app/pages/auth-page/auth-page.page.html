@@ -1,17 +1,28 @@
-<ion-content id="container" class="fondo">
-  <div id="container">
-    <img src="./assets/img/icono_food.png" alt="" style="max-width: 200px;">
+<ion-content class="fondo auth-content">
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="brand-header">
+        <img src="./assets/img/icono_food.png" alt="La Comandera" class="auth-logo">
+        <h1 class="auth-title">LA COMANDERA</h1>
+        <p class="auth-subtitle">Restó & Bar • Sistema Gastronómico</p>
+      </div>
 
-    <ion-button (click)="mostrarLogin($event)" expand="block" size="large" color="danger">
-      Iniciar sesión
-    </ion-button>
-    <ion-button (click)="mostrarDemoRoles($event)" expand="block" size="medium" color="warning">
-      <ion-icon slot="start" name="flash-outline"></ion-icon>
-      Demo Rápida (Portfolio)
-    </ion-button>
-    <ion-button (click)="mostrarRegistro($event)" size="medium" color="dark">
-      Registro
-    </ion-button>
+      <div class="auth-actions">
+        <ion-button (click)="mostrarLogin($event)" expand="block" size="large" color="danger" class="auth-btn btn-login">
+          <ion-icon slot="start" name="log-in-outline"></ion-icon>
+          Iniciar Sesión
+        </ion-button>
+
+        <ion-button (click)="mostrarDemoRoles($event)" expand="block" size="medium" color="warning" class="auth-btn btn-demo">
+          <ion-icon slot="start" name="flash"></ion-icon>
+          ⚡ Demo Rápida (Portfolio)
+        </ion-button>
+
+        <ion-button (click)="mostrarRegistro($event)" expand="block" size="medium" color="dark" class="auth-btn btn-register">
+          <ion-icon slot="start" name="person-add-outline"></ion-icon>
+          Registrarse
+        </ion-button>
+      </div>
+    </div>
   </div>
-
 </ion-content>

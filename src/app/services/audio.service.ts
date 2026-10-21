@@ -6,7 +6,7 @@ interface Sound
 {
   key: string;
   asset: string;
-  isNative: boolean
+  isNative: boolean;
 }
 
 @Injectable({
@@ -17,6 +17,7 @@ export class AudioService
   private sounds: Sound[] = [];
   private audioPlayer: HTMLAudioElement = new Audio();
   private forceWebAudio: boolean = true;
+  private muted: boolean = false;
 
   constructor(private platform: Platform, private nativeAudio: NativeAudio) 
   {
@@ -25,70 +26,105 @@ export class AudioService
 
   preload(key: string, asset: string): Promise<any> 
   {
-    console.log(asset);
-
-    return new Promise<any>((resolve, reject) =>
+    return new Promise<any>((resolve) =>
     {
-      if (this.platform.is('capacitor') || this.platform.is('cordova') && !this.forceWebAudio)
+      const cleanAsset = asset.startsWith('/') ? asset.substring(1) : asset;
+
+      if ((this.platform.is('capacitor') || this.platform.is('cordova')) && !this.forceWebAudio)
       {
-        this.nativeAudio.preloadSimple(key, asset);
+        try 
+        {
+          this.nativeAudio.preloadSimple(key, cleanAsset);
+        } 
+        catch (e) 
+        {
+          console.warn('[AudioService] NativeAudio preload fallback:', e);
+        }
 
         this.sounds.push({
           key: key,
-          asset: asset,
+          asset: cleanAsset,
           isNative: true
         });
       }
       else 
       {
-        let audio = new Audio();
-        audio.src = asset;
+        const audio = new Audio();
+        audio.src = cleanAsset;
+        audio.preload = 'auto';
 
         this.sounds.push({
           key: key,
-          asset: asset,
+          asset: cleanAsset,
           isNative: false
         });
       }
-      resolve;
+      resolve(true);
     });
   }
 
-
   play(key: string): void
   {
-
-    console.log(key);
-    let soundToPlay: Sound = this.sounds.find((sound) => 
+    if (this.muted) 
     {
-      return sound.key === key;
-    });
+      return;
+    }
 
-    console.log(soundToPlay);
+    const soundToPlay = this.sounds.find((sound) => sound.key === key);
 
-    if (soundToPlay.isNative)
+    if (!soundToPlay)
+    {
+      console.warn(`[AudioService] Sound '${key}' not found.`);
+      return;
+    }
+
+    if (soundToPlay.isNative && (this.platform.is('capacitor') || this.platform.is('cordova')))
     {
       this.nativeAudio.play(soundToPlay.key)
-        .then((res) =>
-        {
-          console.log(res);
-        },
-          (err) =>
-          {
-            console.log(err);
-          });
+        .then(
+          (res) => console.log('[AudioService] Native played:', res),
+          (err) => console.warn('[AudioService] Native play error:', err)
+        );
     }
     else 
     {
-      this.audioPlayer.src = soundToPlay.asset;
-      this.audioPlayer.play();
+      try 
+      {
+        this.audioPlayer.src = soundToPlay.asset;
+        this.audioPlayer.volume = 0.8;
+        const playPromise = this.audioPlayer.play();
+        if (playPromise !== undefined) 
+        {
+          playPromise.catch((err) => 
+          {
+            console.log('[AudioService] Autoplay policy prevented playback until user gesture:', err.message || err);
+          });
+        }
+      } 
+      catch (err) 
+      {
+        console.warn('[AudioService] Play error:', err);
+      }
     }
+  }
 
+  setMuted(muted: boolean): void
+  {
+    this.muted = muted;
+    if (muted && this.audioPlayer) 
+    {
+      this.audioPlayer.pause();
+    }
+  }
+
+  isMuted(): boolean
+  {
+    return this.muted;
   }
 
   cargarAssets()
   {
-    this.preload("cierre", '/assets/audio/cierre_app.mp3');
-    this.preload("inicio", '/assets/audio/inicio_app.mp3');
+    this.preload("cierre", 'assets/audio/cierre_app.mp3');
+    this.preload("inicio", 'assets/audio/inicio_app.mp3');
   }
 }

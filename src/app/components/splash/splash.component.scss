@@ -1,70 +1,199 @@
-.splash{
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
+.splash-content {
+  --background: radial-gradient(circle at center, #1f1f2e 0%, #0d0d14 100%);
+  background: radial-gradient(circle at center, #1f1f2e 0%, #0d0d14 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
 
-    #logo {
+.splash-backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px 16px;
+  box-sizing: border-box;
+}
 
-        min-width: fit-content !important;
-        min-height: fit-content !important;
-        
+.splash-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 380px;
+  background: rgba(22, 22, 32, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  padding: 32px 24px 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(240, 23, 51, 0.15);
+  animation: cardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 
-        .cls-1 {
-            opacity: 0;
-            transform: rotate3d(1, 1, 0, 50deg);
-            animation: 1s 0.2s ease fadeInAndSpin;
-            animation-fill-mode: forwards;
-        }
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
 
-        .cls-2 {
-            opacity: 0;
-            transform: rotate3d(1, 1, 0, 60deg);
-            animation: 1s 0.4s ease fadeInAndSpin;
-            animation-fill-mode: forwards;
-        }
+  #logo {
+    width: 100%;
+    max-width: 230px;
+    height: auto;
+    max-height: 40vh;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.45));
 
-        .cls-3 {
-            opacity: 0;
-            transform: rotate3d(1, 1, 0, 50deg);
-            animation: 1s 0.6s ease fadeInAndSpin;
-            animation-fill-mode: forwards;
-        }
-
-        .cls-4 {
-            opacity: 0;
-            transform: rotate3d(1, 1, 0, 60deg);
-            animation: 1s 0.8s ease fadeInAndSpin;
-            animation-fill-mode: forwards;
-        }
-
-        .cls-5, .cls-6 {
-            opacity: 0;
-            animation: 2s 1.5s linear fadeIn;
-            animation-fill-mode: forwards;
-        }
-
+    .cls-1 {
+      opacity: 0;
+      transform: rotate3d(1, 1, 0, 50deg);
+      animation: 1s 0.2s ease fadeInAndSpin;
+      animation-fill-mode: forwards;
     }
+
+    .cls-2 {
+      opacity: 0;
+      transform: rotate3d(1, 1, 0, 60deg);
+      animation: 1s 0.4s ease fadeInAndSpin;
+      animation-fill-mode: forwards;
+    }
+
+    .cls-3 {
+      opacity: 0;
+      transform: rotate3d(1, 1, 0, 50deg);
+      animation: 1s 0.6s ease fadeInAndSpin;
+      animation-fill-mode: forwards;
+    }
+
+    .cls-4 {
+      opacity: 0;
+      transform: rotate3d(1, 1, 0, 60deg);
+      animation: 1s 0.8s ease fadeInAndSpin;
+      animation-fill-mode: forwards;
+    }
+
+    .cls-5,
+    .cls-6 {
+      opacity: 0;
+      animation: 2s 1.5s linear fadeIn;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+.splash-brand {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+
+  .brand-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 12px;
+    background: rgba(240, 23, 51, 0.2);
+    border: 1px solid rgba(240, 23, 51, 0.4);
+    color: #ff5266;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .brand-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #ffffff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  }
+
+  .brand-subtitle {
+    margin: 4px 0 0;
+    font-size: 13px;
+    font-weight: 500;
+    color: #9d9db5;
+    letter-spacing: 0.4px;
+  }
+
+  .splash-touch-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    padding: 7px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 20px;
+    color: #ffd91a;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    animation: pulseTouch 2s ease-in-out infinite;
+
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes fadeInAndSpin {
-
-    100% {
-        opacity: 1;
-        transform: rotate3d(1, 1, 0, 0deg);
-    }
-
+  100% {
+    opacity: 1;
+    transform: rotate3d(1, 1, 0, 0deg);
+  }
 }
 
 @keyframes fadeIn {
-
-    100% {
-        opacity: 1;
-    }
-
+  100% {
+    opacity: 1;
+  }
 }
 
-.modal-wrapper {
-    display: flex!important;
-    justify-content: center !important;
-    align-content: center!important;
-    height: 100% !important;
-    width: 100% !important;
+@keyframes pulseTouch {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+    box-shadow: 0 0 16px rgba(255, 217, 26, 0.3);
+  }
+}
+
+::ng-deep .modal-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  height: 100% !important;
+  width: 100% !important;
+  background: transparent !important;
 }

@@ -1,9 +1,9 @@
-<ion-content class="splash modal-wrapper" center (click)="cerrar()">
-
-  <div class="splash modal-wrapper" (click)="cerrar()">
-
-    <svg id="logo" width="297" height="418.00000000000006" xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink">
+<ion-content class="splash-content" (click)="cerrar()">
+  <div class="splash-backdrop">
+    <div class="splash-card">
+      <div class="logo-container">
+        <svg id="logo" viewBox="0 0 297 418" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
       <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
       <defs>
         <linearGradient spreadMethod="pad" y2="0" x2="1" y1="0" x1="0" id="svg_6">
@@ -137,6 +137,17 @@
           id="svg_27" height="105.16973" width="106.29182" y="197.62914" x="95.60318" />
       </g>
     </svg>
+      </div>
 
+      <div class="splash-brand">
+        <div class="brand-badge">RESTÓ & BAR</div>
+        <h1 class="brand-title">LA COMANDERA</h1>
+        <p class="brand-subtitle">Gestión Gastronómica Inteligente</p>
+        <div class="splash-touch-pill">
+          <ion-icon name="finger-print-outline"></ion-icon>
+          <span>Tocá para ingresar</span>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>

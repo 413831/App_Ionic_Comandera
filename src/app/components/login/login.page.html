@@ -1,8 +1,8 @@
 <ion-header>
-  <ion-toolbar color="medium">
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-button (click)="cerrar()">
-        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -10,54 +10,57 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="fondo">
-  <div id="container" class="contenido">
+<ion-content class="fondo login-content">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-header">
+        <h2 class="login-title">Acceso al Sistema</h2>
+        <p class="login-subtitle">Selecciona una opción o utiliza una cuenta demo de prueba</p>
+      </div>
 
-    <ion-button size="medium" (click)="onLoginGoogle()" expand="block" color="danger">
-      <ion-icon slot="start" name="logo-google"></ion-icon>
-      Entrar con Google+
-    </ion-button>
+      <div class="login-buttons">
+        <ion-button size="large" (click)="mostrarRoles()" expand="block" color="warning" class="btn-demo-primary">
+          <ion-icon slot="start" name="flash"></ion-icon>
+          ⚡ Cuentas Demo (1-Click)
+        </ion-button>
 
-    <ion-button size="medium" (click)="onLoginFacebook()" expand="block" color="primary">
-      <ion-icon slot="start" name="logo-facebook"></ion-icon>
-      Entrar con Facebook
-    </ion-button>
+        <ion-button size="medium" (click)="onLoginMail()" expand="block" color="tertiary" class="btn-option">
+          <ion-icon slot="start" name="mail-outline"></ion-icon>
+          Correo y Contraseña
+        </ion-button>
 
-    <ion-button size="medium" (click)="onLoginTwitter()" expand="block" color="twitter">
-      <ion-icon slot="start" name="logo-twitter"></ion-icon>
-      Entrar con Twitter
-    </ion-button>
+        <ion-button size="medium" (click)="onLoginAnonymously()" expand="block" color="secondary" class="btn-option">
+          <ion-icon slot="start" name="walk-outline"></ion-icon>
+          Ingreso Anónimo
+        </ion-button>
 
-    <!-- <ion-button size="medium" (click)="onLoginGithub()" expand="block" color="dark">
-      <ion-icon slot="start" name="logo-github"></ion-icon>
-      Entrar con Github
-    </ion-button> -->
+        <div class="divider">
+          <span>Otras redes</span>
+        </div>
 
-    <ion-button size="medium" (click)="onLoginAnonymously()" expand="block" color="secondary">
-      <ion-icon slot="start" name="walk-outline"></ion-icon>
-      Anónimo
-    </ion-button>
+        <ion-button size="medium" (click)="onLoginGoogle()" expand="block" color="danger" class="btn-social">
+          <ion-icon slot="start" name="logo-google"></ion-icon>
+          Entrar con Google
+        </ion-button>
 
-    <ion-button size="medium" (click)="onLoginMail()" expand="block" color="tertiary">
-      <ion-icon slot="start" name="mail-outline"></ion-icon>
-      Correo electrónico
-    </ion-button>
+        <ion-button size="medium" (click)="onLoginFacebook()" expand="block" color="primary" class="btn-social">
+          <ion-icon slot="start" name="logo-facebook"></ion-icon>
+          Entrar con Facebook
+        </ion-button>
 
-    <ion-button size="medium" (click)="mostrarRoles()" expand="block" color="warning">
-      <ion-icon slot="start" name="flash-outline"></ion-icon>
-      Cuentas Demo (Portfolio)
-    </ion-button>
-
+        <ion-button size="medium" (click)="onLoginTwitter()" expand="block" color="twitter" class="btn-social">
+          <ion-icon slot="start" name="logo-twitter"></ion-icon>
+          Entrar con Twitter
+        </ion-button>
+      </div>
+    </div>
   </div>
-
-
-
-
 </ion-content>
+
 <ion-footer>
   <ion-toolbar color="dark">
-    <ion-button (click)="mostrarRoles()" expand="full" fill="clear" size="large" color="warning">
-      ⚡ Acceso Rápido / Demo de Roles
+    <ion-button (click)="mostrarRoles()" expand="full" fill="clear" size="large" color="warning" class="footer-demo-btn">
+      ⚡ Acceso Rápido • Demo de Roles
     </ion-button>
   </ion-toolbar>
 </ion-footer>
