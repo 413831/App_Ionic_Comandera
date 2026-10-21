@@ -32,7 +32,7 @@ const { Http } = Plugins;
 })
 export class NotificationsService
 {
-  API = 'https://server-push-notifications.herokuapp.com/';
+  API = '/api/';
   constructor(
     private router: Router,
     private auth: AuthService,

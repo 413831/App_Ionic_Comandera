@@ -7,7 +7,14 @@ require('dotenv').config();
 const app = express();
 
 app.use(bodyparser.json());
-app.use(cors())
+app.use(cors());
+
+app.use((req, res, next) => {
+    if (req.url.startsWith('/api')) {
+        req.url = req.url.replace(/^\/api/, '') || '/';
+    }
+    next();
+});
 
 // app.use((req, res, next) =>
 // {
@@ -164,13 +171,11 @@ app.post('/email', function (req, res) {
 });
 
 
-// Codigo necesario para deploy en Heroku
-app.listen(process.env.PORT || port, () => {
-    console.log('listening to port' + port)
-})
+module.exports = app;
 
-// Codigo necesario para funcionamiento en localhost
-// app.listen(5000, () =>
-// {
-//     console.log('listening to port" + port)
-// }) 
+if (require.main === module) {
+    const serverPort = process.env.PORT || port;
+    app.listen(serverPort, () => {
+        console.log('Listening on port ' + serverPort);
+    });
+}

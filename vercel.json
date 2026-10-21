@@ -1,11 +1,28 @@
 {
-  "version": 2,
-  "outputDirectory": "www",
-  "cleanUrls": true,
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "app": {
+      "root": ".",
+      "framework": "ionic-angular",
+      "outputDirectory": "www"
+    },
+    "server-nodejs": {
+      "root": "server-nodejs",
+      "framework": "express"
+    }
+  },
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "server-nodejs"
+      }
+    },
+    {
       "source": "/(.*)",
-      "destination": "/index.html"
+      "destination": {
+        "service": "app"
+      }
     }
   ]
 }
