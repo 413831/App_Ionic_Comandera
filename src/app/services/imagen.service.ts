@@ -27,27 +27,77 @@ export class ImagenService
 
 
   /**
-   * Subir foto del almacenamiento del dispositivo
+   * Subir foto del almacenamiento del dispositivo (con fallback para navegador web)
    */
   async sacarFoto(): Promise<Imagen>
   {
     let imagen: Imagen = new Imagen();
 
-    const image = await Camera.getPhoto({
-      quality: 90,
-      resultType: CameraResultType.Base64,
-      correctOrientation: true,
-      source: CameraSource.Prompt,
-      promptLabelHeader: "Subir foto",
-      promptLabelCancel: "Cancelar",
-      promptLabelPhoto: "Subir desde galería",
-      promptLabelPicture: "Nueva foto",
-    })
+    try
+    {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        resultType: CameraResultType.Base64,
+        correctOrientation: true,
+        source: CameraSource.Prompt,
+        promptLabelHeader: "Subir foto",
+        promptLabelCancel: "Cancelar",
+        promptLabelPhoto: "Subir desde galería",
+        promptLabelPicture: "Nueva foto",
+      });
 
-    imagen.base64 = image.base64String;
-    imagen.fecha = new Date().toUTCString();
+      imagen.base64 = image.base64String;
+      imagen.fecha = new Date().toUTCString();
 
-    return imagen;
+      return imagen;
+    }
+    catch (error)
+    {
+      console.warn("Camera nativa no disponible, abriendo selector de archivos web:", error);
+      return await this.seleccionarFotoWeb();
+    }
+  }
+
+  private seleccionarFotoWeb(): Promise<Imagen>
+  {
+    return new Promise((resolve) =>
+    {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = 'image/*';
+      input.onchange = (e: any) =>
+      {
+        const file = e.target?.files?.[0];
+        if (file)
+        {
+          const reader = new FileReader();
+          reader.onload = (event: any) =>
+          {
+            const result = event.target.result as string;
+            const base64Data = result.includes(',') ? result.split(',')[1] : result;
+            let img = new Imagen();
+            img.base64 = base64Data;
+            img.fecha = new Date().toUTCString();
+            resolve(img);
+          };
+          reader.readAsDataURL(file);
+        }
+        else
+        {
+          resolve(this.crearImagenPlaceholder());
+        }
+      };
+      input.click();
+    });
+  }
+
+  private crearImagenPlaceholder(): Imagen
+  {
+    let img = new Imagen();
+    // Imagen transparente 1x1 por defecto si se cancela
+    img.base64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==";
+    img.fecha = new Date().toUTCString();
+    return img;
   }
 
   /**

@@ -10,19 +10,40 @@ import { AudioService } from 'src/app/services/audio.service';
 })
 export class SplashComponent implements OnInit
 {
+  private dismissed = false;
 
-  constructor(public viewCtrl: ModalController, public splashScreen: SplashScreen,
-    public audioService: AudioService)
+  constructor(
+    public viewCtrl: ModalController,
+    public splashScreen: SplashScreen,
+    public audioService: AudioService
+  )
   {
-    this.audioService.play('inicio');
-    this.splashScreen.hide();
+    try
+    {
+      this.audioService.play('inicio');
+    }
+    catch (e) {}
+
+    try
+    {
+      this.splashScreen.hide();
+    }
+    catch (e) {}
+
     setTimeout(() =>
     {
+      this.cerrar();
+    }, 3000);
+  }
 
-      this.viewCtrl.dismiss()
-    }, 5000);
+  cerrar()
+  {
+    if (!this.dismissed)
+    {
+      this.dismissed = true;
+      this.viewCtrl.dismiss().catch(() => {});
+    }
   }
 
   ngOnInit() { }
-
 }

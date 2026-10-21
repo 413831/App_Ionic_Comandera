@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService, USERS_TEST } from '../../services/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { Cliente, EstadoAceptacion } from 'src/app/clases/cliente';
@@ -17,9 +17,9 @@ import { LoginProvider } from 'src/app/interfaces/IProviders';
 })
 export class LoginPage implements OnInit
 {
+  @Input() autoRoles: boolean = false;
   usuario: Usuario = new Usuario()
 
-  // constructor(private authService: AuthService, private router: Router) { }
   constructor(private authService: AuthService,
     private router: Router,
     private jefeService: JefeService,
@@ -31,6 +31,14 @@ export class LoginPage implements OnInit
 
   ngOnInit()
   {
+  }
+
+  ionViewDidEnter()
+  {
+    if (this.autoRoles)
+    {
+      this.mostrarRoles();
+    }
   }
 
   // async login(provider: LoginProvider)
@@ -176,42 +184,48 @@ export class LoginPage implements OnInit
   async mostrarRoles()
   {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Perfiles',
+      header: 'Cuentas de Prueba / Demo (Portfolio)',
       mode: "ios",
       translucent: true,
-      buttons: [{
-        text: 'Cliente',
-        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cliente.mail, USERS_TEST.cliente.password)
-      },
-      {
-        text: 'Supervisor',
-        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.supervisor.mail, USERS_TEST.supervisor.password)
-      },
-      {
-        text: 'Dueño',
-        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.duenio.mail, USERS_TEST.duenio.password)
-      },
-      {
-        text: 'Mozo',
-        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.mozo.mail, USERS_TEST.mozo.password)
-      },
-      {
-        text: 'Delivery',
-        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.delivery.mail, USERS_TEST.delivery.password)
-      },
-      {
-        text: 'Cocinero',
-        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cocinero.mail, USERS_TEST.cocinero.password)
-      },
-      {
-        text: 'Bartender',
-        handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.bartender.mail, USERS_TEST.bartender.password)
-      },
-      {
-        text: 'Cerrar',
-        role: 'cancel',
-        handler: () => console.log('Cerrar')
-      }]
+      buttons: [
+        {
+          text: '👑 Dueño',
+          handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.duenio.mail, USERS_TEST.duenio.password)
+        },
+        {
+          text: '🛡️ Supervisor',
+          handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.supervisor.mail, USERS_TEST.supervisor.password)
+        },
+        {
+          text: '🍽️ Mozo',
+          handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.mozo.mail, USERS_TEST.mozo.password)
+        },
+        {
+          text: '🍳 Cocinero',
+          handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cocinero.mail, USERS_TEST.cocinero.password)
+        },
+        {
+          text: '🍹 Bartender',
+          handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.bartender.mail, USERS_TEST.bartender.password)
+        },
+        {
+          text: '🛵 Delivery',
+          handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.delivery.mail, USERS_TEST.delivery.password)
+        },
+        {
+          text: '👤 Cliente Registrado',
+          handler: () => this.onLogin(LoginProvider.Email, USERS_TEST.cliente.mail, USERS_TEST.cliente.password)
+        },
+        {
+          text: '🎭 Cliente Anónimo',
+          handler: () => this.onLoginAnonymously()
+        },
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          handler: () => console.log('Cerrar')
+        }
+      ]
     });
 
     await actionSheet.present();

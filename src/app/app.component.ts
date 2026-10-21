@@ -58,7 +58,11 @@ export class AppComponent
 
   async presentModal()
   {
-    this.statusBar.styleDefault();
+    try
+    {
+      this.statusBar.styleDefault();
+    }
+    catch (e) {}
 
     const modal = await this.modalCtrl.create({
       component: SplashComponent,

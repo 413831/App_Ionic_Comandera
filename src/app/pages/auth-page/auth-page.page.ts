@@ -46,5 +46,19 @@ export class AuthPagePage implements OnInit
     return data;
   }
 
+  async mostrarDemoRoles(event)
+  {
+    const modal = await this.modalController.create({
+      component: LoginPage,
+      componentProps: { autoRoles: true }
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+
+    return data;
+  }
+
 
 }
