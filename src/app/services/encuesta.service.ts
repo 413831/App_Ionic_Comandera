@@ -49,7 +49,12 @@ export class EncuestaService implements IDatabase<Encuesta>{
         });
         EncuestaService.encuestas = encuestas;
         resolve(EncuestaService.encuestas);
-      })
+      }, (error) =>
+      {
+        console.warn("Aviso Firebase encuestas.leer:", error.message || error);
+        if (!EncuestaService.encuestas) { EncuestaService.encuestas = []; }
+        resolve(EncuestaService.encuestas);
+      });
     });
     return fetch;
   }
@@ -68,6 +73,10 @@ export class EncuestaService implements IDatabase<Encuesta>{
         let data = snapshot.val();
         const encuesta = new Encuesta(data as Encuesta);
         resolve(encuesta);
+      }).catch(err =>
+      {
+        console.warn("Aviso Firebase encuestas.leerPorId:", err.message || err);
+        resolve(null);
       });
     })
   }

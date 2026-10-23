@@ -75,9 +75,16 @@ export class MesaService
             data.foto, data.codigoQR, data.isAvailable,
             data.isActive));
         });
-        MesaService.mesas = mesas.filter(mesa => mesa.isActive);
+        if (mesas.length > 0)
+        {
+          MesaService.mesas = mesas.filter(mesa => mesa.isActive);
+        }
         resolve(MesaService.mesas);
-      })
+      }, (error) =>
+      {
+        console.warn("Aviso Firebase mesas.leer:", error.message || error);
+        resolve(MesaService.mesas);
+      });
     });
     return fetch;
   }
@@ -93,9 +100,22 @@ export class MesaService
       this.firebase.database.ref(`mesas/${id}`).once('value').then(snapshot =>
       {
         let data = snapshot.val();
-        const mesa = Mesa.CrearMesa(data.id, data.numero, data.comensales, data.tipo,
-          data.foto, data.codigoQR, data.isAvailable, data.isActive);
-        resolve(mesa);
+        if (data)
+        {
+          const mesa = Mesa.CrearMesa(data.id, data.numero, data.comensales, data.tipo,
+            data.foto, data.codigoQR, data.isAvailable, data.isActive);
+          resolve(mesa);
+        }
+        else
+        {
+          const mesaExistente = MesaService.mesas.find(m => m.id === id);
+          resolve(mesaExistente || null);
+        }
+      }).catch(err =>
+      {
+        console.warn("Aviso Firebase mesas.fetch:", err.message || err);
+        const mesaExistente = MesaService.mesas.find(m => m.id === id);
+        resolve(mesaExistente || null);
       });
     })
   }

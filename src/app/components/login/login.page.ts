@@ -10,6 +10,9 @@ import { ActionSheetController, AlertController, ModalController } from '@ionic/
 import { Imagen } from 'src/app/clases/imagen';
 import { LoginProvider } from 'src/app/interfaces/IProviders';
 
+import { MockDataService } from 'src/app/services/mock-data.service';
+import { UIVisualService } from 'src/app/services/uivisual.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -41,85 +44,106 @@ export class LoginPage implements OnInit
     }
   }
 
-  // async login(provider: LoginProvider)
-  // {
-  //   const uid = await this.authService.onLogin(this.usuario, provider);
-
-  //   console.log(uid);
-
-  //   this.modalController.dismiss();
-  //   this.router.navigate(['/home']);
-  // }
-
   async onLogin(provider: LoginProvider, mailTest?: string, passwordTest?: string)
   {
-    const credential = mailTest && passwordTest ?
-      await this.authService.onLoginTesting(mailTest, passwordTest) :
-      await this.authService.onLogin(this.usuario, provider);
-    const uid = credential ? credential.user.uid : null;
+    MockDataService.inicializarDatosDemo();
+
+    let uid: string = null;
+    try
+    {
+      const credential = mailTest && passwordTest ?
+        await this.authService.onLoginTesting(mailTest, passwordTest) :
+        await this.authService.onLogin(this.usuario, provider);
+      uid = credential ? credential.user.uid : null;
+    }
+    catch (e)
+    {
+      console.warn("Aviso Firebase Auth:", e);
+    }
+
+    let cliente = null;
+    let empleado = null;
+    let jefe = null;
 
     if (uid)
     {
-      console.log('Usuario logueado!');
-      let cliente, empleado, jefe;
-      let clientePromise, empleadoPromise, jefePromise;
-
-      clientePromise = this.clienteService.leerPorID(uid).then(c => cliente = c)
-      empleadoPromise = this.empleadoService.leerPorID(uid).then(c => empleado = c)
-      jefePromise = this.jefeService.leerPorID(uid).then(c => jefe = c)
-
-      await clientePromise, await empleadoPromise, await jefePromise
+      try
+      {
+        const [c, e, j] = await Promise.all([
+          this.clienteService.leerPorID(uid).catch(() => null),
+          this.empleadoService.leerPorID(uid).catch(() => null),
+          this.jefeService.leerPorID(uid).catch(() => null)
+        ]);
+        cliente = c;
+        empleado = e;
+        jefe = j;
+      }
+      catch (err)
+      {
+        console.warn("Aviso leyendo perfiles de Firebase:", err);
+      }
 
       if (cliente)
       {
-        AuthService.usuario = cliente
+        AuthService.usuario = cliente;
       }
       else if (empleado)
       {
-        AuthService.usuario = empleado
+        AuthService.usuario = empleado;
       }
       else if (jefe)
       {
-        AuthService.usuario = jefe
+        AuthService.usuario = jefe;
       }
-      else 
-      {
-        console.log("usuario no encontrado");
-        // mostrar error en pantalla
-      }
-      console.log(AuthService.usuario)
+    }
 
-      if (AuthService.usuario)
-      {
-        this.cerrar();
-        this.router.navigate(['/home'])
-      }
+    // Fallback: si no se encontró en Firebase o estamos en modo demo con mailTest
+    if (!AuthService.usuario && (mailTest || this.usuario.email))
+    {
+      const emailTarget = mailTest || this.usuario.email;
+      console.log('Cargando perfil mock para email:', emailTarget);
+      AuthService.usuario = MockDataService.obtenerUsuarioPorEmail(emailTarget, uid);
+    }
+
+    if (AuthService.usuario)
+    {
+      console.log('Usuario activo:', AuthService.usuario);
+      UIVisualService.presentToast(`Bienvenido/a ${AuthService.usuario.nombre}`);
+      this.cerrar();
+      this.router.navigate(['/home']);
     }
     else
     {
-      console.log("Sin UID " + uid);
+      UIVisualService.presentToast('No se pudo iniciar sesión. Verifique los datos.');
     }
   }
 
   async onLoginAnonymously()
   {
-    const uid = await this.authService.onLoginAnonymously();
+    MockDataService.inicializarDatosDemo();
+    let uid = null;
 
-    if (uid)
+    try
     {
-      console.log('Cliente anonimo logueado!');
-
-      let cliente = Cliente.CrearCliente(uid, "Anónimo", " ", "0", new Imagen(), " ",
-        true, EstadoAceptacion.Anonimo,
-        { isWaiting: false, horario: null })
-      console.log(cliente)
-
-      AuthService.usuario = cliente;
-      this.clienteService.crearAnonimo(cliente);
-
-      this.cerrar();
-      this.router.navigate(['/home'])
+      uid = await this.authService.onLoginAnonymously();
     }
+    catch (error)
+    {
+      console.warn('Firebase anon login fallback:', error);
+    }
+
+    const anonUser = MockDataService.crearClienteAnonimo(uid);
+    AuthService.usuario = anonUser;
+
+    try
+    {
+      this.clienteService.crearAnonimo(anonUser);
+    }
+    catch (e) {}
+
+    UIVisualService.presentToast('Bienvenido Cliente Anónimo');
+    this.cerrar();
+    this.router.navigate(['/home']);
   }
 
   async onLoginMail()

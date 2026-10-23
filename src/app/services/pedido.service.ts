@@ -74,10 +74,17 @@ export class PedidoService
           let data: Pedido = new Pedido(child.val());
           pedidos.push(data);
         });
-        PedidoService.pedidos = pedidos.filter(pedido => pedido.isActive);
+        if (pedidos.length > 0)
+        {
+          PedidoService.pedidos = pedidos.filter(pedido => pedido.isActive);
+        }
         console.log(PedidoService.pedidos);
         resolve(PedidoService.pedidos);
-      })
+      }, (error) =>
+      {
+        console.warn("Aviso Firebase pedidos.leer:", error.message || error);
+        resolve(PedidoService.pedidos);
+      });
     });
     return fetch;
   }
@@ -88,9 +95,17 @@ export class PedidoService
    */
   public async fetch(id: string)
   {
-    const data = await this.firebase.database.ref(`pedidos/${id}`).once('value');
-
-    return new Pedido(data.val());
+    try
+    {
+      const data = await this.firebase.database.ref(`pedidos/${id}`).once('value');
+      return new Pedido(data.val());
+    }
+    catch (err)
+    {
+      console.warn("Aviso Firebase pedidos.fetch:", err);
+      const pedidoExistente = PedidoService.pedidos.find(p => p.id === id);
+      return pedidoExistente || null;
+    }
   }
 
   notificarEntrega(pedido: Pedido)

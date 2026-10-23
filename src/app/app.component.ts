@@ -12,6 +12,7 @@ import { PedidoService } from './services/pedido.service';
 import { ProductoService } from './services/producto.service';
 import { EmpleadoService } from './services/empleado.service';
 import { ClienteService } from './services/cliente.service';
+import { MockDataService } from './services/mock-data.service';
 
 @Component({
   selector: 'app-root',
@@ -40,11 +41,12 @@ export class AppComponent
 
   initializeApp()
   {
-    this.pedidosService.leer();
-    this.productoService.traerTodos();
-    this.empleadosService.leer();
-    this.encuestaService.leer();
-    this.clienteService.leerRechazados();
+    MockDataService.inicializarDatosDemo();
+    try { this.pedidosService.leer().catch(() => {}); } catch (e) {}
+    try { this.productoService.traerTodos().catch(() => {}); } catch (e) {}
+    try { this.empleadosService.leer().catch(() => {}); } catch (e) {}
+    try { this.encuestaService.leer().catch(() => {}); } catch (e) {}
+    try { this.clienteService.leerRechazados().catch(() => {}); } catch (e) {}
     this.platform.pause.subscribe(async () =>
     {
       this.audioService.play('cierre');

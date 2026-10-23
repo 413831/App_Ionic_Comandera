@@ -338,61 +338,37 @@ export class UIVisualService
         {
           text: 'Clientes',
           icon: 'people-outline',
-          handler: () => UIVisualService.UI.router.navigate(['/home/menu-cliente'])
+          handler: () => { UIVisualService.UI.router.navigate(['/home/menu-cliente']); }
         },
         {
           text: 'Empleados',
           icon: 'accessibility-outline',
-          handler: () => 
-          {
-            this.loading();
-            UIVisualService.UI.router.navigate(['/home/menu-empleado'])
-          }
+          handler: () => { UIVisualService.UI.router.navigate(['/home/menu-empleado']); }
         },
         {
           text: 'Supervisores',
           icon: 'glasses-outline',
-          handler: () => 
-          {
-            this.loading();
-            UIVisualService.UI.router.navigate(['/home/menu-jefe']);
-          }
+          handler: () => { UIVisualService.UI.router.navigate(['/home/menu-jefe']); }
         },
         {
           text: 'Mesas',
           icon: 'storefront-outline',
-          handler: () => 
-          {
-            this.loading();
-            UIVisualService.UI.router.navigate(['/home/menu-mesa']);
-          }
+          handler: () => { UIVisualService.UI.router.navigate(['/home/menu-mesa']); }
         },
         {
           text: 'Nuevos Clientes',
           icon: 'person-add-outline',
-          handler: () => 
-          {
-            this.loading();
-            UIVisualService.UI.router.navigate(['/home/clientes-pendientes']);
-          }
+          handler: () => { UIVisualService.UI.router.navigate(['/home/clientes-pendientes']); }
         },
         {
           text: 'Encuesta',
           icon: 'document-text-sharp',
-          handler: () => 
-          {
-            this.loading();
-            UIVisualService.verEncuesta();
-          }
+          handler: () => { UIVisualService.verEncuesta(); }
         },
         {
           text: 'Estadísticas',
           icon: 'analytics-outline',
-          handler: () => 
-          {
-            this.loading();
-            UIVisualService.UI.router.navigate(['/home/estadisticas']);
-          }
+          handler: () => { UIVisualService.UI.router.navigate(['/home/estadisticas']); }
         },
         {
           text: 'Cerrar',

@@ -27,33 +27,37 @@ export class ProductoService
 
   }
 
-  traerTodos()
+  traerTodos(): Promise<Producto[]>
   {
-    try
+    return new Promise<Producto[]>(resolve =>
     {
-      let productos = [];
-
-      const fetch = new Promise<Producto[]>(resolve =>
+      try
       {
         this.db.database.ref('productos').on('value', (snapshot) =>
         {
-          productos = [];
+          let productos = [];
           snapshot.forEach((child) =>
           {
             let data: Producto = child.val();
             productos.push(new Producto(data as Producto));
           });
-          ProductoService.productos = productos.filter(producto => producto.isActive == true);
-
+          if (productos.length > 0)
+          {
+            ProductoService.productos = productos.filter(producto => producto.isActive == true);
+          }
           resolve(ProductoService.productos);
-        })
-      });
-      return fetch;
-    } catch (error)
-    {
-      console.log("Error: ", error);
-    }
-
+        }, (error) =>
+        {
+          console.warn("Aviso Firebase productos.traerTodos:", error.message || error);
+          resolve(ProductoService.productos);
+        });
+      }
+      catch (error)
+      {
+        console.warn("Error en traerTodos:", error);
+        resolve(ProductoService.productos);
+      }
+    });
   }
 
   registrar(producto: Producto): Promise<any>

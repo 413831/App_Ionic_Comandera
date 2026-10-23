@@ -58,6 +58,10 @@ export class EmpleadoService
         EmpleadoService.empleados = empleados.filter(e => e.isActive);
 
         resolve(EmpleadoService.empleados);
+      }, (error) =>
+      {
+        console.warn("Aviso Firebase empleados.leer:", error.message || error);
+        resolve(EmpleadoService.empleados);
       });
     });
   }
@@ -80,6 +84,11 @@ export class EmpleadoService
             data.foto, data.email, data.isActive, data.tipo, data.cuil);
           resolve(empleado);
         }
+      }).catch(err =>
+      {
+        console.warn("Aviso Firebase empleados.leerPorID:", err.message || err);
+        const empExistente = EmpleadoService.empleados.find(e => e.id === id);
+        resolve(empExistente || null);
       });
     })
   }

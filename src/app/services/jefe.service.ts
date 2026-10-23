@@ -70,6 +70,10 @@ export class JefeService
         JefeService.jefes = jefes.filter(e => e.isActive);
 
         resolve(JefeService.jefes);
+      }, (error) =>
+      {
+        console.warn("Aviso Firebase jefes.leer:", error.message || error);
+        resolve(JefeService.jefes);
       });
     });
   }
@@ -92,6 +96,11 @@ export class JefeService
             data.foto, data.email, data.isActive, data.tipo, data.cuil);
           resolve(jefe);
         }
+      }).catch(err =>
+      {
+        console.warn("Aviso Firebase jefes.leerPorID:", err.message || err);
+        const jefeExistente = JefeService.jefes.find(j => j.id === id);
+        resolve(jefeExistente || null);
       });
     })
   }

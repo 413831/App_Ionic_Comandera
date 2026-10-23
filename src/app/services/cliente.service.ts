@@ -86,6 +86,10 @@ export class ClienteService
         ClienteService.clientes = clientes.filter(e => e.isActive);
 
         resolve(ClienteService.clientes);
+      }, (error) =>
+      {
+        console.warn("Aviso Firebase clientes.leer:", error.message || error);
+        resolve(ClienteService.clientes);
       });
     });
   }
@@ -94,7 +98,7 @@ export class ClienteService
   {
     let clientes: Cliente[] = [];
     console.info("Fetch de todos los clientes");
-    let rechazados;
+    let rechazados = [];
     return new Promise<Cliente[]>((resolve) =>
     {
       this.firebase.database.ref("clientes").on("value", (snapshot) =>
@@ -103,13 +107,17 @@ export class ClienteService
 
         snapshot.forEach((child) =>
         {
-          var data= new Cliente(child.val());
+          var data = new Cliente(child.val());
           clientes.push(data);
         });
-        
+
         ClienteService.clientesRechazados = clientes.filter(e => e.estado == EstadoAceptacion.Rechazado);
 
-        resolve(rechazados);
+        resolve(ClienteService.clientesRechazados);
+      }, (error) =>
+      {
+        console.warn("Aviso Firebase clientes.leerRechazados:", error.message || error);
+        resolve(ClienteService.clientesRechazados);
       });
     });
   }
@@ -132,6 +140,11 @@ export class ClienteService
             data.foto, data.email, data.isActive, data.estado, data.enListaDeEspera);
           resolve(cliente);
         }
+      }).catch(err =>
+      {
+        console.warn("Aviso Firebase clientes.leerPorID:", err.message || err);
+        const cliExistente = ClienteService.clientes.find(c => c.id === id);
+        resolve(cliExistente || null);
       });
     })
   }
